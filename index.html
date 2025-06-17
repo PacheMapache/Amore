@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor Spotify - Slider de Imágenes</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <h1 class="header__title">
+                    <span class="header__icon">🎵</span>
+                    Reproductor Musical
+                </h1>
+                <div class="header__status">
+                    <span id="connectionStatus" class="status status--info">Conectando...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                
+                <!-- Image Slider Section -->
+                <section class="slider-section">
+                    <div class="slider-container">
+                        <div class="slider-wrapper" id="sliderWrapper">
+                            <div class="slider-track" id="sliderTrack">
+                                <!-- Images will be loaded here -->
+                            </div>
+                        </div>
+                        
+                        <!-- Slider Controls -->
+                        <div class="slider-controls">
+                            <button class="btn btn--secondary slider-btn" id="prevBtn" aria-label="Imagen anterior">
+                                ←
+                            </button>
+                            <div class="slider-dots" id="sliderDots">
+                                <!-- Dots will be generated here -->
+                            </div>
+                            <button class="btn btn--secondary slider-btn" id="nextBtn" aria-label="Siguiente imagen">
+                                →
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Music Player Section -->
+                <section class="player-section">
+                    <div class="player-container">
+                        <div class="player-card card">
+                            <div class="player-info">
+                                <div class="track-info">
+                                    <h3 id="trackTitle" class="track-title">Cargando canción...</h3>
+                                    <p id="trackArtist" class="track-artist">Artista</p>
+                                </div>
+                                <div class="album-art">
+                                    <div id="albumCover" class="album-cover">
+                                        🎵
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="player-controls">
+                                <div class="main-controls">
+                                    <button class="btn btn--primary control-btn" id="playBtn" aria-label="Reproducir/Pausar">
+                                        <span id="playIcon">▶️</span>
+                                    </button>
+                                </div>
+
+                                <div class="volume-control">
+                                    <span class="volume-icon">🔊</span>
+                                    <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="50" aria-label="Control de volumen">
+                                    <span id="volumeValue" class="volume-value">50%</span>
+                                </div>
+                            </div>
+
+                            <div class="player-footer">
+                                <div class="auth-section" id="authSection">
+                                    <button class="btn btn--primary" id="loginBtn">
+                                        Conectar con Spotify
+                                    </button>
+                                    <p class="auth-note">
+                                        Necesitas conectarte a Spotify para reproducir música
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p class="footer__text">
+                    Reproductor creado con 
+                    <a href="https://developer.spotify.com/documentation/web-playback-sdk/" target="_blank">Spotify Web Playback SDK</a>
+                    y <a href="https://developers.google.com/photos" target="_blank">Google Photos API</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p>Cargando...</p>
+    </div>
+
+    <!-- Spotify Web Playback SDK -->
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
