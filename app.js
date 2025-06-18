@@ -1,7 +1,7 @@
 // Configuration
 const CONFIG = {
   spotify: {
-    clientId: 'TU_SPOTIFY_CLIENT_ID', // Reemplazar con tu Client ID
+    clientId: '196e810886e5453caaea8894b982f905', // Reemplazar con tu Client ID
     redirectUri: window.location.origin,
     scopes: [
       'streaming',
