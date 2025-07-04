@@ -24,6 +24,61 @@ const CONFIG = {
   }
 };
 
+// Configuración de Google Photos
+const GOOGLE_PHOTOS_SCOPES = 'https://www.googleapis.com/auth/photoslibrary.readonly';
+let googlePhotosAccessToken = null;
+let albumImages = [];
+
+// Función para autenticar con Google Photos
+async function authenticateGooglePhotos() {
+  try {
+    const tokenResponse = await fetch('/api/google-photos-auth', {
+      method: 'POST'
+    });
+    const { authUrl } = await tokenResponse.json();
+    window.location.href = authUrl;
+  } catch (error) {
+    console.error('Error en autenticación:', error);
+  }
+}
+
+// Obtener imágenes del álbum
+async function fetchAlbumImages(albumId) {
+  try {
+    const response = await fetch(`/api/google-photos-album?albumId=${albumId}`, {
+      headers: {
+        Authorization: `Bearer ${googlePhotosAccessToken}`
+      }
+    });
+    const data = await response.json();
+    return data.mediaItems.map(item => ({
+      url: `${item.baseUrl}=w1200-h800`, // Ajusta dimensiones
+      title: item.filename
+    }));
+  } catch (error) {
+    console.error('Error fetching images:', error);
+    return [];
+  }
+}
+
+// Actualizar slideshow con imágenes reales
+async function initSlideshowWithGooglePhotos() {
+  const albumId = 'TU_ID_DE_ALBUM'; // Reemplazar con ID real
+  albumImages = await fetchAlbumImages(albumId);
+  
+  if (albumImages.length > 0) {
+    // Reemplazar imágenes estáticas
+    slideshowContainer.innerHTML = '';
+    albumImages.forEach((img, index) => {
+      const slide = document.createElement('div');
+      slide.className = `slide ${index === 0 ? 'active' : ''}`;
+      slide.innerHTML = `<img src="${img.url}" alt="${img.title}">`;
+      slideshowContainer.appendChild(slide);
+    });
+  }
+}
+
+
 // Global variables
 let spotifyPlayer = null;
 let isPlaying = false;
